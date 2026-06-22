@@ -1,0 +1,206 @@
+/* ── Double Nickels — shared styles ── */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #F2F2F2;
+  color: #1A1A18;
+  font-family: 'Univers', 'Univers LT Pro', 'UniversLTPro', 'Inter', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+header {
+  padding: 1.5rem 2.5rem;
+  border-bottom: 0.5px solid #D8D8D8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-tagline {
+  font-size: 1rem;
+  font-style: italic;
+  color: #6A6660;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #1A1A18;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.header-brand-logo {
+  width: 48px;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+nav { display: flex; gap: 2.5rem; }
+
+nav a {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6A6660;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+nav a:hover,
+nav a.active { color: #1A1A18; }
+
+/* ── Hero: logo + name (home page) ── */
+.hero {
+  padding: 5vw 2.5rem 4vw;
+  border-bottom: 0.5px solid #D8D8D8;
+  text-align: center;
+}
+
+.hero-logo {
+  width: clamp(160px, 35vw, 400px);
+  height: auto;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.hero-name {
+  font-size: clamp(1.8rem, 4.5vw, 3.5rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: #1A1A18;
+  line-height: 1;
+}
+
+/* ── Page header (inner pages) ── */
+.page-header {
+  padding: 3.5rem 2.5rem 2.5rem;
+  border-bottom: 0.5px solid #D8D8D8;
+}
+
+.page-title {
+  font-size: clamp(0.9rem, 2vw, 1.5rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: #1A1A18;
+  line-height: 1;
+}
+
+/* ── Main ── */
+main { flex: 1; }
+
+/* ── Section ── */
+.section {
+  padding: 3.5rem 2.5rem;
+  border-bottom: 0.5px solid #D8D8D8;
+}
+
+.section-label {
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8A8680;
+  margin-bottom: 3rem;
+}
+
+/* ── Exhibition entry ── */
+.exhibition {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  padding: 2.5rem 0;
+  border-top: 0.5px solid #D8D8D8;
+}
+
+.exh-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #1A1A18;
+}
+
+.exh-artists {
+  font-size: 1.2rem;
+  color: #1A1A18;
+  line-height: 1.9;
+  margin-bottom: 1.25rem;
+}
+
+.exh-meta {
+  font-size: 1rem;
+  color: #6A6660;
+  line-height: 1.9;
+}
+
+/* ── Coming soon ── */
+.coming-soon {
+  padding: 2.5rem 0;
+  border-top: 0.5px solid #D8D8D8;
+}
+
+.coming-soon p {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #8A8680;
+}
+
+/* ── Contact page ── */
+.contact-block {
+  padding: 3rem 0;
+  border-top: 0.5px solid #D8D8D8;
+}
+
+.contact-block a {
+  color: #1A1A18;
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 2.4;
+  display: block;
+}
+
+.contact-block a:hover { color: #6A6660; }
+
+/* ── Footer ── */
+footer {
+  padding: 1.5rem 2.5rem;
+  border-top: 0.5px solid #D8D8D8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.footer-logo { width: 18px; height: auto; opacity: 0.3; }
+.footer-text { font-size: 0.63rem; color: #8A8680; }
+.footer-right { font-size: 0.63rem; color: #8A8680; }
+.footer-right a { color: #8A8680; text-decoration: none; }
+.footer-right a:hover { color: #1A1A18; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  header { padding: 1.25rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .hero { padding: 3rem 1.5rem 2.5rem; }
+  .page-header { padding: 2.5rem 1.5rem; }
+  .section { padding: 2.5rem 1.5rem; }
+  footer { padding: 1.25rem 1.5rem; }
+  .exhibition { grid-template-columns: 1fr; }
+  nav { flex-wrap: wrap; gap: 1rem; }
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Double Nickels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .exhibition a img:hover { opacity: 0.82; }
+    @media (max-width: 600px) {
+      .exhibition { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="header-tagline">walking what's left of our wits.</p>
+    <nav>
+      <a href="exhibitions.html">Exhibitions</a>
+      <a href="editions.html">Editions</a>
+      <a href="merch.html">Merch</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <img class="hero-logo" src="logo.png" alt="Double Nickels">
+    <p class="hero-name">Double Nickels</p>
+  </div>
+
+  <main>
+    <section class="section">
+      <p class="section-label">Recent</p>
+      <div class="exhibition" style="grid-template-columns: 1fr 1fr 1fr;">
+        <a href="hurdy-gurdy-man.html" style="display:block; overflow:hidden;">
+          <img src="installation-1.jpg" alt="The Hurdy Gurdy Man" style="width:100%; height:auto; display:block; transition:opacity 0.2s;">
+        </a>
+        <h2 class="exh-title" style="align-self:start; padding-top:0.25rem;">
+          <a href="hurdy-gurdy-man.html" style="color:inherit; text-decoration:none; border-bottom:0.5px solid #1A1A18;">The Hurdy Gurdy Man</a>
+        </h2>
+        <div>
+          <p class="exh-artists">
+            Andrew Hahn<br>
+            Dave Hughes<br>
+            Mitchell Syrop
+          </p>
+          <p class="exh-meta">
+            Henry Taylor Gallery<br>
+            510 Bernard St, Los Angeles<br>
+            May 9 – 29, 2026
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-left">
+      <img class="footer-logo" src="logo.png" alt="" aria-hidden="true">
+      <span class="footer-text">© 2026 Double Nickels · Los Angeles</span>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:doublenickelsprojects@gmail.com">doublenickelsprojects@gmail.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.instagram.com/55doublenickels55" target="_blank">@55doublenickels55</a>
+    </div>
+  </footer>
+
+</body>
+</html>

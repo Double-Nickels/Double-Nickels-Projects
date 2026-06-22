@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Hurdy Gurdy Man — Double Nickels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── Exhibition intro ── */
+    .exh-intro {
+      padding: 3.5rem 2.5rem 2.5rem;
+      border-bottom: 0.5px solid #D8D8D8;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* ── Gallery sections ── */
+    .gallery-section {
+      padding: 3rem 2.5rem 0;
+    }
+
+    .gallery-section:last-of-type {
+      padding-bottom: 3rem;
+    }
+
+    .gallery-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #8A8680;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 0.5px solid #D8D8D8;
+    }
+
+    /* Installation: 2 large photos side by side */
+    .grid-installation {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    /* Artwork grids */
+    .grid-artwork {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    /* For Dave (8 photos): mix of sizes — first photo wider */
+    .grid-dave {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    /* For Andrew (10 photos): 4-column on large screens */
+    .grid-andrew {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .grid-item {
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* First image for each artist spans full width */
+    .grid-item.featured {
+      grid-column: 1 / -1;
+    }
+
+    /* Diptych — two images side by side, spanning full grid width */
+    .diptych {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    /* Diptych with uniform height — images cropped to match */
+    .diptych-uniform {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .diptych-uniform .grid-item {
+      aspect-ratio: 3/2;
+      overflow: hidden;
+    }
+
+    .diptych-uniform .grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity 0.25s;
+    }
+
+    .grid-item:hover img { opacity: 0.82; }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(242, 242, 242, 0.97);
+      z-index: 100;
+      flex-direction: column;
+    }
+
+    .lightbox.open { display: flex; }
+
+    /* Top bar */
+    .lightbox-top {
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .lightbox-back-home {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6A6660;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+    .lightbox-back-home:hover { color: #1A1A18; }
+    .lightbox-back-home:hover img { opacity: 1 !important; }
+
+    .lightbox-close {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6A6660;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      padding: 0;
+    }
+    .lightbox-close:hover { color: #1A1A18; }
+
+    /* Image area with in-image nav zones */
+    .lightbox-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .lightbox-img {
+      max-width: 82vw;
+      max-height: 78vh;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Click zones — left half / right half of image area */
+    .lb-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      z-index: 10;
+    }
+    .lb-zone-prev { left: 0; justify-content: flex-start; padding-left: 2vw; }
+    .lb-zone-next { right: 0; justify-content: flex-end; padding-right: 2vw; }
+
+    /* Arrow chevrons — hidden by default, fade in on hover */
+    .lb-arrow {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(242,242,242,0.72);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.18s;
+      pointer-events: none;
+    }
+
+    .lb-zone:hover .lb-arrow { opacity: 1; }
+
+    .lb-arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: #1A1A18;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Bottom bar */
+    .lightbox-bottom {
+      padding: 1rem 2rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .lightbox-back-grid {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6A6660;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      padding: 0;
+    }
+    .lightbox-back-grid:hover { color: #1A1A18; }
+
+    .lightbox-counter {
+      font-size: 0.62rem;
+      color: #8A8680;
+      letter-spacing: 0.08em;
+    }
+
+    .lightbox-arrows {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .lightbox-nav {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6A6660;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      padding: 0;
+    }
+    .lightbox-nav:hover { color: #1A1A18; }
+
+    /* Caption */
+    .lightbox-caption {
+      text-align: center;
+      padding: 0.5rem 2rem 0;
+      flex-shrink: 0;
+    }
+
+    .lightbox-caption-artist {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: #6A6660;
+      display: block;
+    }
+
+    .lightbox-caption-title {
+      font-size: 0.65rem;
+      font-style: italic;
+      color: #6A6660;
+      display: block;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .grid-andrew { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .exh-intro { grid-template-columns: 1fr; padding: 2rem 1.25rem; }
+      .gallery-section { padding: 2rem 1.25rem 0; }
+      .grid-installation { grid-template-columns: 1fr; }
+      .grid-artwork,
+      .grid-dave,
+      .grid-andrew { grid-template-columns: repeat(2, 1fr); }
+      .lightbox-img { max-width: 94vw; max-height: 70vh; }
+      .lb-arrow { width: 36px; height: 36px; }
+    }
+
+    @media (max-width: 400px) {
+      .grid-artwork,
+      .grid-dave,
+      .grid-andrew { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="header-brand">
+      <img src="logo.png" alt="" class="header-brand-logo" aria-hidden="true">
+      Double Nickels
+    </a>
+    <nav>
+      <a href="exhibitions.html" class="active">Exhibitions</a>
+      <a href="editions.html">Editions</a>
+      <a href="merch.html">Merch</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Exhibition intro -->
+  <div class="exh-intro">
+    <h1 class="exh-title">The Hurdy<br>Gurdy Man</h1>
+    <div>
+      <p class="exh-artists">
+        Andrew Hahn<br>
+        Dave Hughes<br>
+        Mitchell Syrop
+      </p>
+      <p class="exh-meta">
+        Henry Taylor Gallery<br>
+        510 Bernard St, Los Angeles<br>
+        May 9 – 29, 2026
+      </p>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Installation -->
+    <div class="gallery-section">
+      <p class="gallery-label">Installation</p>
+      <div class="grid-installation">
+        <div class="grid-item" data-index="0" data-artist="" data-title="Installation view" data-year=""><img src="installation-1.jpg" alt="Installation view 1"></div>
+        <div class="grid-item" data-index="1" data-artist="" data-title="Installation view" data-year=""><img src="installation-2.jpg" alt="Installation view 2"></div>
+      </div>
+    </div>
+
+    <!-- Mitchell Syrop -->
+    <div class="gallery-section">
+      <p class="gallery-label">Mitchell Syrop</p>
+      <div class="grid-artwork">
+        <div class="grid-item featured" data-index="2" data-artist="Mitchell Syrop" data-title="I Put That Mark in Your Head" data-year="2004"><img src="mitchell-1.jpg" alt="Mitchell Syrop"></div>
+        <div class="diptych">
+          <div class="grid-item" data-index="3" data-artist="Mitchell Syrop" data-title="Character" data-year="2026"><img src="mitchell-2.jpg" alt="Mitchell Syrop"></div>
+          <div class="grid-item" data-index="4" data-artist="Mitchell Syrop" data-title="Mechanism" data-year="2026"><img src="mitchell-3.jpg" alt="Mitchell Syrop"></div>
+        </div>
+        <div class="diptych">
+          <div class="grid-item" data-index="5" data-artist="Mitchell Syrop" data-title="Semi Demi" data-year="2026"><img src="mitchell-4.jpg" alt="Mitchell Syrop"></div>
+          <div class="grid-item" data-index="6" data-artist="Mitchell Syrop" data-title="Spread Bleed" data-year="2026"><img src="mitchell-5.jpg" alt="Mitchell Syrop"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dave Hughes -->
+    <div class="gallery-section">
+      <p class="gallery-label">Dave Hughes</p>
+      <div class="grid-dave">
+        <div class="grid-item featured" data-index="7" data-artist="Dave Hughes" data-title="Installation view" data-year=""><img src="dave-1.jpg" alt="Dave Hughes"></div>
+        <div class="grid-item" data-index="8" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-2.jpg" alt="Dave Hughes"></div>
+        <div class="grid-item" data-index="9" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-3.jpg" alt="Dave Hughes"></div>
+        <div class="grid-item" data-index="10" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-4.jpg" alt="Dave Hughes"></div>
+        <div class="grid-item" data-index="11" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-5.jpg" alt="Dave Hughes"></div>
+        <div class="grid-item" data-index="12" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-6.jpg" alt="Dave Hughes"></div>
+        <div class="diptych-uniform">
+          <div class="grid-item" data-index="13" data-artist="Dave Hughes" data-title="Untitled" data-year="2026"><img src="dave-7.jpg" alt="Dave Hughes"></div>
+          <div class="grid-item" data-index="14" data-artist="Dave Hughes" data-title="Untitled" data-year="2026"><img src="dave-8.jpg" alt="Dave Hughes"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Andrew Hahn -->
+    <div class="gallery-section">
+      <p class="gallery-label">Andrew Hahn</p>
+      <div class="grid-andrew">
+        <div class="grid-item featured" data-index="15" data-artist="Andrew Hahn" data-title="Installation view" data-year=""><img src="andrew-1.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item" data-index="16" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 8" data-year="2018"><img src="andrew-2.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item" data-index="17" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 5" data-year="2018"><img src="andrew-3.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item" data-index="18" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 11" data-year="2018"><img src="andrew-4.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item" data-index="19" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 2" data-year="2018"><img src="andrew-5.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item" data-index="20" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 1" data-year="2018"><img src="andrew-6.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item" data-index="21" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 4" data-year="2018"><img src="andrew-7.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item" data-index="22" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 12" data-year="2018"><img src="andrew-8.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item" data-index="23" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 9" data-year="2018"><img src="andrew-9.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item" data-index="24" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 3" data-year="2018"><img src="andrew-10.jpg" alt="Andrew Hahn"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-top">
+      <a href="index.html" class="lightbox-back-home">
+        <img src="logo.png" alt="" style="width:20px;height:auto;vertical-align:middle;margin-right:0.4rem;opacity:0.6;">
+        <span>Double Nickels</span>
+      </a>
+      <button class="lightbox-close" id="lb-close">Close</button>
+    </div>
+    <div class="lightbox-stage">
+      <div class="lb-zone lb-zone-prev" id="lb-zone-prev">
+        <div class="lb-arrow">
+          <svg viewBox="0 0 16 16"><polyline points="10,2 4,8 10,14"/></svg>
+        </div>
+      </div>
+      <img class="lightbox-img" id="lb-img" src="" alt="">
+      <div class="lb-zone lb-zone-next" id="lb-zone-next">
+        <div class="lb-arrow">
+          <svg viewBox="0 0 16 16"><polyline points="6,2 12,8 6,14"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="lightbox-caption" id="lb-caption">
+      <span class="lightbox-caption-artist" id="lb-artist"></span>
+      <span class="lightbox-caption-title" id="lb-title"></span>
+    </div>
+    <div class="lightbox-bottom">
+      <button class="lightbox-back-grid" id="lb-back-grid">← Back to grid</button>
+      <span class="lightbox-counter" id="lb-counter"></span>
+      <div class="lightbox-arrows">
+        <button class="lightbox-nav" id="lb-prev">← Prev</button>
+        <button class="lightbox-nav" id="lb-next">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-left">
+      <img class="footer-logo" src="logo.png" alt="" aria-hidden="true">
+      <span class="footer-text">© 2026 Double Nickels · Los Angeles</span>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:doublenickelsprojects@gmail.com">doublenickelsprojects@gmail.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.instagram.com/55doublenickels55" target="_blank">@55doublenickels55</a>
+    </div>
+  </footer>
+
+  <script>
+    const items = Array.from(document.querySelectorAll('.grid-item'));
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbCounter = document.getElementById('lb-counter');
+    const lbArtist = document.getElementById('lb-artist');
+    const lbTitle = document.getElementById('lb-title');
+    const total = items.length;
+    let current = 0;
+
+    function openLightbox(index) {
+      current = index;
+      showCurrent();
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showCurrent() {
+      const item = items[current];
+      const img = item.querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbCounter.textContent = (current + 1) + ' / ' + total;
+      const artist = item.dataset.artist || '';
+      const title  = item.dataset.title  || '';
+      const year   = item.dataset.year   || '';
+      lbArtist.textContent = artist;
+      lbTitle.textContent  = title && year ? title + ', ' + year : title;
+      document.getElementById('lb-caption').style.display =
+        (artist || title) ? 'block' : 'none';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function prev() { current = (current - 1 + total) % total; showCurrent(); }
+    function next() { current = (current + 1) % total; showCurrent(); }
+
+    items.forEach((item, i) => item.addEventListener('click', () => openLightbox(i)));
+
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    document.getElementById('lb-back-grid').addEventListener('click', closeLightbox);
+    document.getElementById('lb-prev').addEventListener('click', prev);
+    document.getElementById('lb-next').addEventListener('click', next);
+    document.getElementById('lb-zone-prev').addEventListener('click', prev);
+    document.getElementById('lb-zone-next').addEventListener('click', next);
+
+    // Touch swipe support
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    lightbox.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+    });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
