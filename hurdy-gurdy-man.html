@@ -20,6 +20,18 @@
       align-items: start;
     }
 
+    /* ── Artist name links in intro ── */
+    .artist-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 0.5px solid #1A1A18;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .artist-link:hover {
+      color: #6A6660;
+      border-color: #6A6660;
+    }
+
     /* ── Gallery sections ── */
     .gallery-section {
       padding: 3rem 2.5rem 0;
@@ -99,12 +111,12 @@
       gap: 0.75rem;
     }
 
-    .diptych-uniform .grid-item {
+    .diptych-uniform .diptych-cell .grid-item {
       aspect-ratio: 3/2;
       overflow: hidden;
     }
 
-    .diptych-uniform .grid-item img {
+    .diptych-uniform .diptych-cell .grid-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -116,6 +128,26 @@
       height: auto;
       display: block;
       transition: opacity 0.25s;
+    }
+
+    /* ── Thumbnail captions ── */
+    .thumb-caption {
+      padding: 0.5rem 0 1rem;
+    }
+
+    .thumb-caption-title {
+      display: block;
+      font-size: 0.72rem;
+      font-style: italic;
+      color: #1A1A18;
+      line-height: 1.5;
+    }
+
+    .thumb-caption-meta {
+      display: block;
+      font-size: 0.65rem;
+      color: #6A6660;
+      line-height: 1.6;
     }
 
     .grid-item:hover img { opacity: 0.82; }
@@ -337,12 +369,12 @@
     <h1 class="exh-title">The Hurdy<br>Gurdy Man</h1>
     <div>
       <p class="exh-artists">
-        Andrew Hahn<br>
-        Dave Hughes<br>
-        Mitchell Syrop
+        <a href="#andrew-hahn" class="artist-link">Andrew Hahn</a><br>
+        <a href="#dave-hughes" class="artist-link">Dave Hughes</a><br>
+        <a href="#mitchell-syrop" class="artist-link">Mitchell Syrop</a>
       </p>
       <p class="exh-meta">
-        Henry Taylor Gallery<br>
+        at Henry Taylor Gallery<br>
         510 Bernard St, Los Angeles<br>
         May 9 – 29, 2026
       </p>
@@ -355,58 +387,207 @@
     <div class="gallery-section">
       <p class="gallery-label">Installation</p>
       <div class="grid-installation">
-        <div class="grid-item" data-index="0" data-artist="" data-title="Installation view" data-year=""><img src="installation-1.jpg" alt="Installation view 1"></div>
-        <div class="grid-item" data-index="1" data-artist="" data-title="Installation view" data-year=""><img src="installation-2.jpg" alt="Installation view 2"></div>
+        <div class="grid-item" data-index="0" data-artist="" data-title="Installation view" data-year="">
+          <img src="installation-1.jpg" alt="Installation view 1">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Installation view</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="1" data-artist="" data-title="Installation view" data-year="">
+          <img src="installation-2.jpg" alt="Installation view 2">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Installation view</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Mitchell Syrop -->
-    <div class="gallery-section">
+    <div class="gallery-section" id="mitchell-syrop">
       <p class="gallery-label">Mitchell Syrop</p>
       <div class="grid-artwork">
-        <div class="grid-item featured" data-index="2" data-artist="Mitchell Syrop" data-title="I Put That Mark in Your Head" data-year="2004"><img src="mitchell-1.jpg" alt="Mitchell Syrop"></div>
-        <div class="diptych">
-          <div class="grid-item" data-index="3" data-artist="Mitchell Syrop" data-title="Character" data-year="2026"><img src="mitchell-2.jpg" alt="Mitchell Syrop"></div>
-          <div class="grid-item" data-index="4" data-artist="Mitchell Syrop" data-title="Mechanism" data-year="2026"><img src="mitchell-3.jpg" alt="Mitchell Syrop"></div>
+        <div class="grid-item featured" data-index="2" data-artist="Mitchell Syrop" data-title="I Put That Mark in Your Head" data-year="2004">
+          <img src="mitchell-1.jpg" alt="Mitchell Syrop">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Mitchell Syrop</span>
+          </div>
         </div>
         <div class="diptych">
-          <div class="grid-item" data-index="5" data-artist="Mitchell Syrop" data-title="Semi Demi" data-year="2026"><img src="mitchell-4.jpg" alt="Mitchell Syrop"></div>
-          <div class="grid-item" data-index="6" data-artist="Mitchell Syrop" data-title="Spread Bleed" data-year="2026"><img src="mitchell-5.jpg" alt="Mitchell Syrop"></div>
+          <div class="grid-item" data-index="3" data-artist="Mitchell Syrop" data-title="Character" data-year="2026">
+            <img src="mitchell-2.jpg" alt="Mitchell Syrop">
+            <div class="thumb-caption">
+              <span class="thumb-caption-title">Character, 2026</span>
+              <span class="thumb-caption-meta">Acrylic on museum board</span>
+            </div>
+          </div>
+          <div class="grid-item" data-index="4" data-artist="Mitchell Syrop" data-title="Mechanism" data-year="2026">
+            <img src="mitchell-3.jpg" alt="Mitchell Syrop">
+            <div class="thumb-caption">
+              <span class="thumb-caption-title">Mechanism, 2026</span>
+              <span class="thumb-caption-meta">Acrylic on museum board</span>
+            </div>
+          </div>
+        </div>
+        <div class="diptych">
+          <div class="grid-item" data-index="5" data-artist="Mitchell Syrop" data-title="Semi Demi" data-year="2026">
+            <img src="mitchell-4.jpg" alt="Mitchell Syrop">
+            <div class="thumb-caption">
+              <span class="thumb-caption-title">Semi Demi, 2026</span>
+              <span class="thumb-caption-meta">Ink and acrylic on paper</span>
+            </div>
+          </div>
+          <div class="grid-item" data-index="6" data-artist="Mitchell Syrop" data-title="Spread Bleed" data-year="2026">
+            <img src="mitchell-5.jpg" alt="Mitchell Syrop">
+            <div class="thumb-caption">
+              <span class="thumb-caption-title">Spread Bleed, 2026</span>
+              <span class="thumb-caption-meta">Ink and acrylic on paper</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Dave Hughes -->
-    <div class="gallery-section">
+    <div class="gallery-section" id="dave-hughes">
       <p class="gallery-label">Dave Hughes</p>
       <div class="grid-dave">
-        <div class="grid-item featured" data-index="7" data-artist="Dave Hughes" data-title="Installation view" data-year=""><img src="dave-1.jpg" alt="Dave Hughes"></div>
-        <div class="grid-item" data-index="8" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-2.jpg" alt="Dave Hughes"></div>
-        <div class="grid-item" data-index="9" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-3.jpg" alt="Dave Hughes"></div>
-        <div class="grid-item" data-index="10" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-4.jpg" alt="Dave Hughes"></div>
-        <div class="grid-item" data-index="11" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-5.jpg" alt="Dave Hughes"></div>
-        <div class="grid-item" data-index="12" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26"><img src="dave-6.jpg" alt="Dave Hughes"></div>
+        <div class="grid-item featured" data-index="7" data-artist="Dave Hughes" data-title="Installation view" data-year="">
+          <img src="dave-1.jpg" alt="Dave Hughes">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Installation view</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="8" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26">
+          <img src="dave-2.jpg" alt="Dave Hughes">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Untitled, 2025–26</span>
+            <span class="thumb-caption-meta">Pencil and ink on paper mylar</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="9" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26">
+          <img src="dave-3.jpg" alt="Dave Hughes">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Untitled, 2025–26</span>
+            <span class="thumb-caption-meta">Pencil and ink on paper mylar</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="10" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26">
+          <img src="dave-4.jpg" alt="Dave Hughes">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Untitled, 2025–26</span>
+            <span class="thumb-caption-meta">Pencil and ink on paper mylar</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="11" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26">
+          <img src="dave-5.jpg" alt="Dave Hughes">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Untitled, 2025–26</span>
+            <span class="thumb-caption-meta">Pencil and ink on paper mylar</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="12" data-artist="Dave Hughes" data-title="Untitled" data-year="2025–26">
+          <img src="dave-6.jpg" alt="Dave Hughes">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Untitled, 2025–26</span>
+            <span class="thumb-caption-meta">Pencil and ink on paper mylar</span>
+          </div>
+        </div>
         <div class="diptych-uniform">
-          <div class="grid-item" data-index="13" data-artist="Dave Hughes" data-title="Untitled" data-year="2026"><img src="dave-7.jpg" alt="Dave Hughes"></div>
-          <div class="grid-item" data-index="14" data-artist="Dave Hughes" data-title="Untitled" data-year="2026"><img src="dave-8.jpg" alt="Dave Hughes"></div>
+          <div class="diptych-cell">
+            <div class="grid-item" data-index="13" data-artist="Dave Hughes" data-title="Untitled" data-year="2026">
+              <img src="dave-7.jpg" alt="Dave Hughes">
+            </div>
+            <div class="thumb-caption">
+              <span class="thumb-caption-title">Untitled, 2026</span>
+              <span class="thumb-caption-meta">Steel, ink, paper</span>
+            </div>
+          </div>
+          <div class="diptych-cell">
+            <div class="grid-item" data-index="14" data-artist="Dave Hughes" data-title="Untitled" data-year="2026">
+              <img src="dave-8.jpg" alt="Dave Hughes">
+            </div>
+            <div class="thumb-caption">
+              <span class="thumb-caption-title">Untitled, 2026</span>
+              <span class="thumb-caption-meta">Steel, ink, paper</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Andrew Hahn -->
-    <div class="gallery-section">
+    <div class="gallery-section" id="andrew-hahn">
       <p class="gallery-label">Andrew Hahn</p>
       <div class="grid-andrew">
-        <div class="grid-item featured" data-index="15" data-artist="Andrew Hahn" data-title="Installation view" data-year=""><img src="andrew-1.jpg" alt="Andrew Hahn"></div>
-        <div class="grid-item" data-index="16" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 8" data-year="2018"><img src="andrew-2.jpg" alt="Andrew Hahn"></div>
-        <div class="grid-item" data-index="17" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 5" data-year="2018"><img src="andrew-3.jpg" alt="Andrew Hahn"></div>
-        <div class="grid-item" data-index="18" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 11" data-year="2018"><img src="andrew-4.jpg" alt="Andrew Hahn"></div>
-        <div class="grid-item" data-index="19" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 2" data-year="2018"><img src="andrew-5.jpg" alt="Andrew Hahn"></div>
-        <div class="grid-item" data-index="20" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 1" data-year="2018"><img src="andrew-6.jpg" alt="Andrew Hahn"></div>
-        <div class="grid-item" data-index="21" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 4" data-year="2018"><img src="andrew-7.jpg" alt="Andrew Hahn"></div>
-        <div class="grid-item" data-index="22" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 12" data-year="2018"><img src="andrew-8.jpg" alt="Andrew Hahn"></div>
-        <div class="grid-item" data-index="23" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 9" data-year="2018"><img src="andrew-9.jpg" alt="Andrew Hahn"></div>
-        <div class="grid-item" data-index="24" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 3" data-year="2018"><img src="andrew-10.jpg" alt="Andrew Hahn"></div>
+        <div class="grid-item featured" data-index="15" data-artist="Andrew Hahn" data-title="Installation view" data-year="">
+          <img src="andrew-1.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Installation view</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="16" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 8" data-year="2018">
+          <img src="andrew-2.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Spirit Photography Drawing 8, 2018</span>
+            <span class="thumb-caption-meta">Pencil on paper</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="17" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 5" data-year="2018">
+          <img src="andrew-3.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Spirit Photography Drawing 5, 2018</span>
+            <span class="thumb-caption-meta">Pencil on paper</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="18" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 11" data-year="2018">
+          <img src="andrew-4.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Spirit Photography Drawing 11, 2018</span>
+            <span class="thumb-caption-meta">Pencil on paper</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="19" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 2" data-year="2018">
+          <img src="andrew-5.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Spirit Photography Drawing 2, 2018</span>
+            <span class="thumb-caption-meta">Pencil on paper</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="20" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 1" data-year="2018">
+          <img src="andrew-6.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Spirit Photography Drawing 1, 2018</span>
+            <span class="thumb-caption-meta">Pencil on paper</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="21" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 4" data-year="2018">
+          <img src="andrew-7.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Spirit Photography Drawing 4, 2018</span>
+            <span class="thumb-caption-meta">Pencil on paper</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="22" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 12" data-year="2018">
+          <img src="andrew-8.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Spirit Photography Drawing 12, 2018</span>
+            <span class="thumb-caption-meta">Pencil on paper</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="23" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 9" data-year="2018">
+          <img src="andrew-9.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Spirit Photography Drawing 9, 2018</span>
+            <span class="thumb-caption-meta">Pencil on paper</span>
+          </div>
+        </div>
+        <div class="grid-item" data-index="24" data-artist="Andrew Hahn" data-title="Spirit Photography Drawing 3" data-year="2018">
+          <img src="andrew-10.jpg" alt="Andrew Hahn">
+          <div class="thumb-caption">
+            <span class="thumb-caption-title">Spirit Photography Drawing 3, 2018</span>
+            <span class="thumb-caption-meta">Pencil on paper</span>
+          </div>
+        </div>
       </div>
     </div>
 
