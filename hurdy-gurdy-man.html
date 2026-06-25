@@ -104,6 +104,18 @@
       align-items: start;
     }
 
+    /* Diptych with matched portrait height (Mitchell Semi Demi / Spread Bleed) */
+    .diptych-matched .grid-item {
+      aspect-ratio: 2/3;
+      overflow: hidden;
+    }
+    .diptych-matched .grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
     /* Diptych with uniform height — images cropped to match */
     .diptych-uniform {
       grid-column: 1 / -1;
@@ -430,16 +442,20 @@
             </div>
           </div>
         </div>
-        <div class="diptych">
-          <div class="grid-item" data-index="5" data-artist="Mitchell Syrop" data-title="Semi Demi" data-year="2026">
-            <img src="mitchell-4a.jpg" alt="Mitchell Syrop">
+        <div class="diptych diptych-matched">
+          <div>
+            <div class="grid-item" data-index="5" data-artist="Mitchell Syrop" data-title="Semi Demi" data-year="2026">
+              <img src="mitchell-4a.jpg" alt="Mitchell Syrop">
+            </div>
             <div class="thumb-caption">
               <span class="thumb-caption-title">Semi Demi, 2026</span>
               <span class="thumb-caption-meta">Ink and acrylic on paper, 30 × 22 inches</span>
             </div>
           </div>
-          <div class="grid-item" data-index="6" data-artist="Mitchell Syrop" data-title="Spread Bleed" data-year="2026">
-            <img src="mitchell-5a.jpg" alt="Mitchell Syrop">
+          <div>
+            <div class="grid-item" data-index="6" data-artist="Mitchell Syrop" data-title="Spread Bleed" data-year="2026">
+              <img src="mitchell-5a.jpg" alt="Mitchell Syrop">
+            </div>
             <div class="thumb-caption">
               <span class="thumb-caption-title">Spread Bleed, 2026</span>
               <span class="thumb-caption-meta">Ink and acrylic on paper, 30 × 22 inches</span>
